@@ -18,6 +18,6 @@ RUN pip install uvicorn
 
 EXPOSE 8000
 
-COPY src /app
+COPY . .
 
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
