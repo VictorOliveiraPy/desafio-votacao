@@ -7,8 +7,8 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 
-from controllers.associate_controller import associate_router
-from repository.database.database import Base, get_db
+from src.controllers.associate_controller import associate_router
+from src.repository.database.database import Base, get_db
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # this is to include backend dir in sys.path so that we can import from db,main.py
