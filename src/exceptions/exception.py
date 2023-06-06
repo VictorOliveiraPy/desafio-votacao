@@ -16,3 +16,11 @@ class VoteRegistrationError(Exception):
 
 class AgendaSessionClosedError(Exception):
     pass
+
+
+class AssociateNotFoundError(Exception):
+    pass
+
+
+class AssociateAlreadyVotedError(Exception):
+    pass

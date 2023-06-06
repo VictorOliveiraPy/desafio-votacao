@@ -19,3 +19,4 @@ def create_user(associate_input: AssociateCreateInput, db: Session = Depends(get
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error") from e
+
