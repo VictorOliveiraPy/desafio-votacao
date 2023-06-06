@@ -10,7 +10,7 @@ from src.repository.sqlalchemy.associate_repository import AssociateRepository
 from src.repository.sqlalchemy.agenda_repository import AgendaRepository
 from src.repository.sqlalchemy.models.agenda import Agenda
 from src.exceptions.exception import AgendaCreationError, AgendaNotFoundError, AgendaSessionClosedError, \
-    AssociateAlreadyVotedError
+    AssociateAlreadyVotedError, AssociateNotFoundError
 from datetime import datetime, timedelta
 
 configure_loggng()
@@ -27,7 +27,7 @@ class AgendaService:
     def create_agenda_item(self, agenda_data: dict, associate_id: int, db: Session) -> Agenda:
         associate = self.associate_repository.get_associate(associate_id, db)
         if not associate:
-            raise ValueError(f"Associate {associate_id} does not exist")
+            raise AssociateNotFoundError(f"Associate {associate_id} does not exist")
         try:
             agenda_item = self.agenda_repository.create_agenda_item(associate_id, agenda_data, db)
             return agenda_item

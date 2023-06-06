@@ -10,14 +10,16 @@ from src.repository.sqlalchemy.models.vote import Vote
 
 class AgendaRepository:
     def create_agenda_item(self, associate_id: int, agenda_data: dict, session) -> Agenda:
+        title = agenda_data["title"]
+        description = agenda_data["description"]
         try:
             agenda_item = Agenda(
                 associate_id=associate_id,
-                title=agenda_data.get("title"),
-                description=agenda_data.get("description"),
+                title=title,
+                description=description,
             )
-            session.add(agenda_item)
-            session.commit()
+            with session.begin_nested():
+                session.add(agenda_item)
             return agenda_item
         except SQLAlchemyError as exception:
             session.rollback()

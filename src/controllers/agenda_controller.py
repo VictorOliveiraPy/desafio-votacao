@@ -26,6 +26,8 @@ def create_agenda(
         return agenda_item
     except AgendaCreationError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except AssociateNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error") from e
 
