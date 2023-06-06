@@ -1,24 +1,30 @@
-class AssociateCreationError(Exception):
+class BaseException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
+class AssociateCreationError(BaseException):
     pass
 
 
-class AgendaCreationError(Exception):
+class AgendaCreationError(BaseException):
     pass
 
 
-class AgendaNotFoundError(Exception):
+class AgendaNotFoundError(BaseException):
     pass
 
 
-class VoteRegistrationError(Exception):
+class VoteRegistrationError(BaseException):
     pass
 
 
-class AgendaSessionClosedError(Exception):
+class AgendaSessionClosedError(BaseException):
     pass
 
 
-class AssociateNotFoundError(Exception):
+class AssociateNotFoundError(BaseException):
     pass
 
 

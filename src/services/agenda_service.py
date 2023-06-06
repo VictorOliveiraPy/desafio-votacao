@@ -4,6 +4,7 @@ from functools import partial
 from sqlalchemy.orm import Session
 from starlette.background import BackgroundTasks
 
+from src.repository.sqlalchemy.vote_repository import VoteRepository
 from src.log import configure_loggng
 from src.repository.sqlalchemy.associate_repository import AssociateRepository
 from src.repository.sqlalchemy.agenda_repository import AgendaRepository
@@ -21,6 +22,7 @@ class AgendaService:
     def __init__(self):
         self.agenda_repository = AgendaRepository()
         self.associate_repository = AssociateRepository()
+        self.vote_repository = VoteRepository()
 
     def create_agenda_item(self, agenda_data: dict, associate_id: int, db: Session) -> Agenda:
         associate = self.associate_repository.get_associate(associate_id, db)
@@ -57,7 +59,7 @@ class AgendaService:
         agenda = self.agenda_repository.get_agenda_item(agenda_id, db)
         if not agenda.session_open:
             raise AgendaSessionClosedError("Agenda session is closed")
-        if self.associate_repository.has_associate_voted(agenda_id, associate_id, db):
+        if self.vote_repository.has_associate_voted(agenda_id, associate_id, db):
             raise AssociateAlreadyVotedError(f"Associate {associate_id} has already voted on agenda {agenda_id}")
 
         self.agenda_repository.register_vote(vote, associate_id, agenda.id, db)
