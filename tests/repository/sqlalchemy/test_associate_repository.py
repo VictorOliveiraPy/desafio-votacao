@@ -12,7 +12,6 @@ def test_create_associate(db_session: Session):
 
     associate = associate_repository.create_associate(name, db_session)
 
-    # Assert
     assert isinstance(associate, Associate)
     assert associate.name == name
 
