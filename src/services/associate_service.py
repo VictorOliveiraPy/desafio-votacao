@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 
+from src.exceptions.exception import AssociateCreationError
 from src.repository.sqlalchemy.associate_repository import AssociateRepository
 
 
@@ -11,5 +12,5 @@ class AssociateService:
         try:
             associate = self.associate_repository.create_associate(name, db)
             return associate
-        except Exception as exception:
+        except AssociateCreationError as exception:
             raise exception
