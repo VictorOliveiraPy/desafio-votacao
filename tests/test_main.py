@@ -4,10 +4,10 @@ from starlette.testclient import TestClient
 from src.main import app
 
 
-@pytest.fixture()
-def client():
-    return TestClient(app)
-
+# @pytest.fixture()
+# def client():
+#     return TestClient(app)
+#
 
 class TestHealthCheck:
     def test_health_check_return_message_ok(self, client):
